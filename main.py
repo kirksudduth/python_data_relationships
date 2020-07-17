@@ -28,33 +28,45 @@ ludwig_beethoven = Instructor(
     "Ludwig", "Beethoven", "lud_von_bee", "Day Cohort 44", "deaf and deft")
 
 day_44.add_instructors(wolfgang_amadeus, johann_sebastian, ludwig_beethoven)
-wolfgang_amadeus.assign_exercise(tim_hill, critter_crunch, planetary_pause)
-wolfgang_amadeus.assign_exercise(tina_hyman, style_saavy, planetary_pause)
+wolfgang_amadeus.assign_exercise(tim_hill, planetary_pause)
+wolfgang_amadeus.assign_exercise(tina_hyman, planetary_pause)
 wolfgang_amadeus.assign_exercise(
-    terri_howard, egregiously_excited, lousy_loungers)
+    terri_howard, lousy_loungers)
 wolfgang_amadeus.assign_exercise(
-    theodore_hankins, critter_crunch, lousy_loungers)
+    theodore_hankins, critter_crunch)
 
-johann_sebastian.assign_exercise(tim_hill, style_saavy, planetary_pause)
+johann_sebastian.assign_exercise(tim_hill, style_saavy)
 johann_sebastian.assign_exercise(
-    tina_hyman, egregiously_excited, lousy_loungers)
-johann_sebastian.assign_exercise(terri_howard, critter_crunch, lousy_loungers)
+    tina_hyman, lousy_loungers)
+johann_sebastian.assign_exercise(terri_howard, lousy_loungers)
 johann_sebastian.assign_exercise(
-    theodore_hankins, planetary_pause, egregiously_excited)
+    theodore_hankins, planetary_pause)
 
 ludwig_beethoven.assign_exercise(
-    tina_hyman, egregiously_excited, planetary_pause)
-ludwig_beethoven.assign_exercise(terri_howard, critter_crunch, lousy_loungers)
+    tina_hyman, egregiously_excited)
+ludwig_beethoven.assign_exercise(terri_howard, critter_crunch)
 ludwig_beethoven.assign_exercise(
-    theodore_hankins, egregiously_excited, critter_crunch)
+    theodore_hankins, egregiously_excited)
 ludwig_beethoven.assign_exercise(
-    tim_hill, egregiously_excited, planetary_pause)
+    tim_hill, egregiously_excited)
+
+for exercise in tim_hill.exercises:
+    print(f'{exercise.name} is gonna be a fun adventure in {exercise.language}')
+
+students = list()
+exercises = list()
+students = [tim_hill, tina_hyman, terri_howard, theodore_hankins]
+exercises = [critter_crunch, planetary_pause,
+             egregiously_excited, lousy_loungers, style_saavy]
 
 
-def Strings(exercises):
-    def __str__(self, exercises):
-        for exercise in exercises:
-            return f'{exercise.name} is an exercise using {exercise.language}'
+# def lambda
+def exercise_function(exercises):
+    return [f'{exercise.name}' for exercise in exercises]
 
 
-print(Strings(t_h_exercises))
+for student in students:
+    student_exercises = ", ".join(exercise_function(student.exercises))
+    print(f'{student.first_name} {student.last_name} is working on {student_exercises}.')
+    # for exercise in student.exercises:
+    #     print(f'{exercise.name}, ') +=
