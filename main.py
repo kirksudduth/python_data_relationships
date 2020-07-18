@@ -60,7 +60,6 @@ exercises = [critter_crunch, planetary_pause,
              egregiously_excited, lousy_loungers, style_saavy]
 
 
-# def lambda
 def exercise_function(exercises):
     return [f'{exercise.name}' for exercise in exercises]
 
@@ -68,5 +67,3 @@ def exercise_function(exercises):
 for student in students:
     student_exercises = ", ".join(exercise_function(student.exercises))
     print(f'{student.first_name} {student.last_name} is working on {student_exercises}.')
-    # for exercise in student.exercises:
-    #     print(f'{exercise.name}, ') +=
