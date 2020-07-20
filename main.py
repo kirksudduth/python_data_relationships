@@ -67,3 +67,5 @@ def exercise_function(exercises):
 for student in students:
     student_exercises = ", ".join(exercise_function(student.exercises))
     print(f'{student.first_name} {student.last_name} is working on {student_exercises}.')
+
+tim_hill.full_name()
