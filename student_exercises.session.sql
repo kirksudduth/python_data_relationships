@@ -166,3 +166,15 @@ VALUES
 INSERT INTO students_exercises
 VALUES
     (null, 7, 1);
+
+SELECT e.id ExerciseId,
+    e.name,
+    s.id,
+    s.first_name,
+    s.last_name
+FROM exercises e
+    JOIN students_exercises se on se.exercise_Id = e.Id
+    JOIN Students s ON s.id = se.Student_id
+ORDER BY e.id;
+
+
