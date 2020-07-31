@@ -14,19 +14,22 @@ DROP TABLE IF EXISTS instructors;
 
 
 
-CREATE TABLE exercises (
-    id INTEGER NOT NULL PRIMARY KEY AUTOINCREMENT,
+CREATE TABLE exercises
+(
+    id INTEGER NOT NULL PRIMARY KEY,
     name TEXT NOT NULL UNIQUE,
     language TEXT NOT NULL
 );
 
-CREATE TABLE cohorts (
-    id INTEGER NOT NULL PRIMARY KEY AUTOINCREMENT,
+CREATE TABLE cohorts
+(
+    id INTEGER NOT NULL PRIMARY KEY,
     name TEXT NOT NULL UNIQUE
 );
 
-CREATE TABLE students (
-    id INTEGER NOT NULL PRIMARY KEY AUTOINCREMENT,
+CREATE TABLE students
+(
+    id INTEGER NOT NULL PRIMARY KEY,
     first_name TEXT NOT NULL,
     last_name TEXT NOT NULL,
     slack_handle TEXT NOT NULL,
@@ -36,8 +39,9 @@ CREATE TABLE students (
 (id)
 );
 
-CREATE TABLE instructors (
-    id INTEGER NOT NULL PRIMARY KEY AUTOINCREMENT,
+CREATE TABLE instructors
+(
+    id INTEGER NOT NULL PRIMARY KEY,
     first_name TEXT NOT NULL,
     last_name TEXT NOT NULL,
     slack_handle TEXT NOT NULL,
@@ -48,8 +52,9 @@ CREATE TABLE instructors (
 (id)
 );
 
-CREATE TABLE students_exercises (
-    id INTEGER NOT NULL PRIMARY KEY AUTOINCREMENT,
+CREATE TABLE students_exercises
+(
+    id INTEGER NOT NULL PRIMARY KEY,
     student_id INTEGER NOT NULL,
     exercise_id INTEGER NOT NULL,
     FOREIGN KEY
