@@ -12,3 +12,6 @@ class Cohort:
         self.instructors.extend(cohort_instructors)
         for instructor in cohort_instructors:
             return f'{instructor.first_name} {instructor.last_name}'
+
+    def __str__(self):
+        return f'{self.name}'

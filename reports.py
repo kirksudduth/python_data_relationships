@@ -1,17 +1,8 @@
 import sqlite3
 from student import Student
-
-
-# class Student():
-
-#     def __init__(self, first, last, handle, cohort):
-#         self.first_name = first
-#         self.last_name = last
-#         self.slack_handle = handle
-#         self.cohort = cohort
-
-#     def __str__(self):
-#         return f'{self.first_name} {self.last_name} is in {self.cohort}'
+from instructor import Instructor
+from exercise import Exercise
+from cohort import Cohort
 
 
 class StudentExerciseReports():
@@ -22,15 +13,66 @@ class StudentExerciseReports():
     def __init__(self):
         self.db_path = "/Users/kirk/workspace/python/student_exercises/student_exercises.db"
 
-    def create_student(self, cursor, row):
-        return Student(row[1], row[2], row[3], row[5])
+    def all_exercises(self):
+        """Retrieve all exercises with exercise name"""
+        with sqlite3.connect(self.db_path) as conn:
+            conn.row_factory = lambda cursor, row: Exercise(row[1], row[2])
+            db_cursor = conn.cursor()
+
+            db_cursor.execute("""
+            select ex.id,
+                ex.name,
+                ex.language
+            from exercises ex
+            """)
+        all_exercises = db_cursor.fetchall()
+        [print(ex) for ex in all_exercises]
+
+    def all_cohorts(self):
+        """Retrieve all cohorts with cohort name"""
+        with sqlite3.connect(self.db_path) as conn:
+            conn.row_factory = lambda cursor, row: Cohort(row[1])
+            db_cursor = conn.cursor()
+
+            db_cursor.execute("""
+            select c.id,
+                c.name
+            from cohorts c
+            """)
+
+        all_cohorts = db_cursor.fetchall()
+        [print(c) for c in all_cohorts]
+
+    def all_instructors(self):
+        """Retrieve all instructors with
+        the cohort name"""
+        with sqlite3.connect(self.db_path) as conn:
+            conn.row_factory = lambda cursor, row: Instructor(
+                row[1], row[2], row[3], row[5], row[4])
+            db_cursor = conn.cursor()
+
+            db_cursor.execute("""
+            select i.id,
+                i.first_name,
+                i.last_name,
+                i.slack_handle,
+                i.cohort_id,
+                c.name
+            from instructors i
+            join cohorts c on i.cohort_id = c.id
+            order by i.cohort_id
+            """)
+
+        all_instructors = db_cursor.fetchall()
+        [print(i) for i in all_instructors]
 
     def all_students(self):
         """Retrieve all students with 
         the cohort name"""
 
         with sqlite3.connect(self.db_path) as conn:
-            conn.row_factory = self.create_student
+            conn.row_factory = lambda cursor, row: Student(
+                row[1], row[2], row[3], row[5])
             db_cursor = conn.cursor()
 
             db_cursor.execute("""
@@ -47,12 +89,16 @@ class StudentExerciseReports():
 
             all_students = db_cursor.fetchall()
 
-            for student in all_students:
-                print(
-                    f'{student.first_name} {student.last_name} is in {student.cohort}')
+            # ***COMPREHENSION _ SUPER CONCISE***
+            # does the same thing as for loop
+            [print(s) for s in all_students]
+
+            # for student in all_students:
+            #     print(student)
 
 
 reports = StudentExerciseReports()
 reports.all_students()
-# student = Student("Bart", "Simpson", "@bart", "Cohort 8")
-# print(f'{student.first_name} {student.last_name} is in {student.cohort}')
+reports.all_instructors()
+reports.all_cohorts()
+reports.all_exercises()
