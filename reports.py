@@ -72,6 +72,38 @@ class StudentExerciseReports(Student):
         # ***COMPREHENSION __ A BETTER FOR LOOP (LESS CHARS)***
         [print(c) for c in all_cohorts]
 
+    def all_javascript_ex(self):
+        """Retrieve all JavaScript exercises"""
+        with sqlite3.connect(self.db_path) as conn:
+            conn.row_factory = lambda cursor, row: Exercise(row[1], row[2])
+            db_cursor = conn.cursor()
+
+            db_cursor.execute(""" 
+            select ex.id,
+                ex.name,
+                ex.language
+            from exercises ex 
+            where ex.language like "%javas%"
+            """)
+        all_javascript_ex = db_cursor.fetchall()
+        [print(ex) for ex in all_javascript_ex]
+
+    def all_python_ex(self):
+        """Retrive all Python exercises"""
+        with sqlite3.connect(self.db_path) as conn:
+            conn.row_factory = lambda cursor, row: Exercise(row[1], row[2])
+            db_cursor = conn.cursor()
+
+            db_cursor.execute("""
+            select ex.id,
+                ex.name,
+                ex.language
+            from exercises ex
+            where ex.language like "%python%"
+            """)
+        all_python_ex = db_cursor.fetchall()
+        [print(ex) for ex in all_python_ex]
+
     def all_instructors(self):
         """Retrieve all instructors with
         the cohort name"""
@@ -102,3 +134,5 @@ reports.all_students()
 reports.all_instructors()
 reports.all_cohorts()
 reports.all_exercises()
+reports.all_javascript_ex()
+reports.all_python_ex()
