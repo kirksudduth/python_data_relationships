@@ -1,4 +1,5 @@
 from nss_person import NSS_person
+import sqlite3
 
 
 class Student(NSS_person):

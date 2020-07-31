@@ -5,66 +5,13 @@ from exercise import Exercise
 from cohort import Cohort
 
 
-class StudentExerciseReports():
+class StudentExerciseReports(Student):
 
     """Methods for reports on the 
     Student Exercises database """
 
     def __init__(self):
         self.db_path = "/Users/kirk/workspace/python/student_exercises/student_exercises.db"
-
-    def all_exercises(self):
-        """Retrieve all exercises with exercise name"""
-        with sqlite3.connect(self.db_path) as conn:
-            conn.row_factory = lambda cursor, row: Exercise(row[1], row[2])
-            db_cursor = conn.cursor()
-
-            db_cursor.execute("""
-            select ex.id,
-                ex.name,
-                ex.language
-            from exercises ex
-            """)
-        all_exercises = db_cursor.fetchall()
-        [print(ex) for ex in all_exercises]
-
-    def all_cohorts(self):
-        """Retrieve all cohorts with cohort name"""
-        with sqlite3.connect(self.db_path) as conn:
-            conn.row_factory = lambda cursor, row: Cohort(row[1])
-            db_cursor = conn.cursor()
-
-            db_cursor.execute("""
-            select c.id,
-                c.name
-            from cohorts c
-            """)
-
-        all_cohorts = db_cursor.fetchall()
-        [print(c) for c in all_cohorts]
-
-    def all_instructors(self):
-        """Retrieve all instructors with
-        the cohort name"""
-        with sqlite3.connect(self.db_path) as conn:
-            conn.row_factory = lambda cursor, row: Instructor(
-                row[1], row[2], row[3], row[5], row[4])
-            db_cursor = conn.cursor()
-
-            db_cursor.execute("""
-            select i.id,
-                i.first_name,
-                i.last_name,
-                i.slack_handle,
-                i.cohort_id,
-                c.name
-            from instructors i
-            join cohorts c on i.cohort_id = c.id
-            order by i.cohort_id
-            """)
-
-        all_instructors = db_cursor.fetchall()
-        [print(i) for i in all_instructors]
 
     def all_students(self):
         """Retrieve all students with 
@@ -93,8 +40,61 @@ class StudentExerciseReports():
             # does the same thing as for loop
             [print(s) for s in all_students]
 
-            # for student in all_students:
-            #     print(student)
+    def all_exercises(self):
+        """Retrieve all exercises with exercise name"""
+        with sqlite3.connect(self.db_path) as conn:
+            conn.row_factory = lambda cursor, row: Exercise(row[1], row[2])
+            db_cursor = conn.cursor()
+
+            db_cursor.execute("""
+            select ex.id,
+                ex.name,
+                ex.language
+            from exercises ex
+            """)
+        all_exercises = db_cursor.fetchall()
+        # ***COMPREHENSION __ A BETTER FOR LOOP (LESS CHARS)***
+        [print(ex) for ex in all_exercises]
+
+    def all_cohorts(self):
+        """Retrieve all cohorts with cohort name"""
+        with sqlite3.connect(self.db_path) as conn:
+            conn.row_factory = lambda cursor, row: Cohort(row[1])
+            db_cursor = conn.cursor()
+
+            db_cursor.execute("""
+            select c.id,
+                c.name
+            from cohorts c
+            """)
+
+        all_cohorts = db_cursor.fetchall()
+        # ***COMPREHENSION __ A BETTER FOR LOOP (LESS CHARS)***
+        [print(c) for c in all_cohorts]
+
+    def all_instructors(self):
+        """Retrieve all instructors with
+        the cohort name"""
+        with sqlite3.connect(self.db_path) as conn:
+            conn.row_factory = lambda cursor, row: Instructor(
+                row[1], row[2], row[3], row[5], row[4])
+            db_cursor = conn.cursor()
+
+            db_cursor.execute("""
+            select i.id,
+                i.first_name,
+                i.last_name,
+                i.slack_handle,
+                i.cohort_id,
+                c.name
+            from instructors i
+            join cohorts c on i.cohort_id = c.id
+            order by i.cohort_id
+            """)
+
+        all_instructors = db_cursor.fetchall()
+        # ***COMPREHENSION __ A BETTER FOR LOOP (LESS CHARS)***
+        [print(i) for i in all_instructors]
 
 
 reports = StudentExerciseReports()
