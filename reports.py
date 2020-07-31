@@ -5,7 +5,7 @@ from exercise import Exercise
 from cohort import Cohort
 
 
-class StudentExerciseReports(Student):
+class StudentExerciseReports():
 
     """Methods for reports on the 
     Student Exercises database """
