@@ -70,4 +70,94 @@ INSERT INTO cohorts
 VALUES
     (null, "Night Cohort 15");
 
+INSERT INTO exercises
+VALUES
+    (null, "The Big Trip", "Python");
+INSERT INTO exercises
+VALUES
+    (null, "Gallons of What?!", "CSS");
+INSERT INTO exercises
+VALUES
+    (null, "Caring is Sharing", "JavaScript");
+INSERT INTO exercises
+VALUES
+    (null, "Data, My Love", "SQL");
+INSERT INTO exercises
+VALUES
+    (null, "Hooks for the Ages", "JavaScript");
 
+
+INSERT INTO instructors
+VALUES
+    (null, "Joe", "Shepherd", "joes", "mixing petrol and teaching the code", 1);
+INSERT INTO instructors
+VALUES
+    (null, "Bryan", "Nilsen", "bryguy", "dunking basketballs and rocking out", 2);
+INSERT INTO instructors
+VALUES
+    (null, "Madi", "Peper", "mpeper", "dominating dad jokes", 3);
+
+INSERT INTO students
+VALUES
+    (null, "Michael", "Jordan", "hisairness", 1);
+INSERT INTO students
+VALUES
+    (null, "Steve", "Kerr", "stevekerr", 2);
+INSERT INTO students
+VALUES
+    (null, "Scottie", "Pippen", "big33", 1);
+INSERT INTO students
+VALUES
+    (null, "Dennis", "Rodman", "hustle&glow", 3);
+INSERT INTO students
+VALUES
+    (null, "Luc", "Longley", "liluc", 3);
+INSERT INTO students
+VALUES
+    (null, "Toni", "Kukoc", "tk7", 1);
+INSERT INTO students
+VALUES
+    (null, "Horace", "Grant", "mrspecs", 2);
+
+INSERT INTO students_exercises
+VALUES
+    (null, 1, 5);
+INSERT INTO students_exercises
+VALUES
+    (null, 1, 3);
+INSERT INTO students_exercises
+VALUES
+    (null, 2, 1);
+INSERT INTO students_exercises
+VALUES
+    (null, 2, 2);
+INSERT INTO students_exercises
+VALUES
+    (null, 3, 4);
+INSERT INTO students_exercises
+VALUES
+    (null, 3, 5);
+INSERT INTO students_exercises
+VALUES
+    (null, 4, 1);
+INSERT INTO students_exercises
+VALUES
+    (null, 4, 4);
+INSERT INTO students_exercises
+VALUES
+    (null, 5, 2);
+INSERT INTO students_exercises
+VALUES
+    (null, 5, 3);
+INSERT INTO students_exercises
+VALUES
+    (null, 6, 5);
+INSERT INTO students_exercises
+VALUES
+    (null, 6, 4);
+INSERT INTO students_exercises
+VALUES
+    (null, 7, 3);
+INSERT INTO students_exercises
+VALUES
+    (null, 7, 1);
