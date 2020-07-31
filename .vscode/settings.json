@@ -1,3 +1,11 @@
 {
-    "python.pythonPath": "/Users/kirk/.pyenv/versions/3.8.1/bin/python"
+    "python.pythonPath": "/Users/kirk/.pyenv/versions/3.8.1/bin/python",
+    "sqltools.connections": [
+        {
+            "database": "${workspaceFolder:student_exercises}/student_exercises.db",
+            "driver": "SQLite",
+            "name": "student_exercises",
+            "previewLimit": 50
+        }
+    ]
 }
