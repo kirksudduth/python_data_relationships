@@ -6,7 +6,6 @@ from cohort import Cohort
 
 
 class StudentExerciseReports():
-
     """Methods for reports on the 
     Student Exercises database """
 
@@ -104,6 +103,41 @@ class StudentExerciseReports():
         all_python_ex = db_cursor.fetchall()
         [print(ex) for ex in all_python_ex]
 
+    def exercises_with_students(self):
+        """Retrieve all exercises with list of students assigned them"""
+        exercises_dict = dict()
+        with sqlite3.connect(self.db_path) as conn:
+            db_cursor = conn.cursor()
+
+            db_cursor.execute("""
+                select
+                    e.Id Exercise_Id,
+                    e.Name,
+                    s.Id,
+                    s.First_Name,
+                    s.Last_Name
+                from Exercises e
+                join Students_Exercises se on se.Exercise_Id = e.Id
+                join Students s on s.Id = se.Student_Id
+    """)
+
+            dataset = db_cursor.fetchall()
+            for row in dataset:
+                exercise_id = row[0]
+                exercise_name = row[1]
+                student_id = row[2]
+                student_name = f'{row[3]} {row[4]}'
+
+                if exercise_name not in exercises_dict:
+                    exercises_dict[exercise_name] = [student_name]
+                else:
+                    exercises_dict[exercise_name].append(student_name)
+
+            for exercise_name, students in exercises_dict.items():
+                print(exercise_name)
+                for student in students:
+                    print(f'\t* {student}')
+
     def all_instructors(self):
         """Retrieve all instructors with
         the cohort name"""
@@ -130,9 +164,10 @@ class StudentExerciseReports():
 
 
 reports = StudentExerciseReports()
-reports.all_students()
-reports.all_instructors()
-reports.all_cohorts()
-reports.all_exercises()
-reports.all_javascript_ex()
-reports.all_python_ex()
+# reports.all_students()
+# reports.all_instructors()
+# reports.all_cohorts()
+# reports.all_exercises()
+# reports.all_javascript_ex()
+# reports.all_python_ex()
+reports.exercises_with_students()
