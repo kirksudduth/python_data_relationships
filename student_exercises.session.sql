@@ -177,4 +177,17 @@ FROM exercises e
     JOIN Students s ON s.id = se.Student_id
 ORDER BY e.id;
 
+select
+    s.id as Student_ID,
+    s.first_name,
+    s.last_name,
+    e.id,
+    e.name
+from students s
+    join students_exercises se on se.student_id = s.id
+    join exercises e on e.id = se.exercise_id
+order by s.id;
+            
+
+
 
