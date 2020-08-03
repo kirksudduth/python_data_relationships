@@ -2,13 +2,13 @@ DELETE FROM exercises;
 DELETE FROM cohorts;
 DELETE FROM students;
 DELETE FROM instructors;
--- DELETE FROM students_exercises;
+DELETE FROM students_exercises;
 
 DROP TABLE IF EXISTS exercises;
 DROP TABLE IF EXISTS cohorts;
 DROP TABLE IF EXISTS students;
 DROP TABLE IF EXISTS instructors;
--- DROP TABLE IF EXISTS students_exercises;
+DROP TABLE IF EXISTS students_exercises;
 
 
 
@@ -57,12 +57,16 @@ CREATE TABLE students_exercises
     id INTEGER NOT NULL PRIMARY KEY,
     student_id INTEGER NOT NULL,
     exercise_id INTEGER NOT NULL,
+    assigner_id INTEGER NOT NULL,
     FOREIGN KEY
 (student_id) REFERENCES students
 (id),
     FOREIGN KEY
 (exercise_id) REFERENCES exercises
-(id)
+(id),
+    FOREIGN KEY
+    (assigner_id) REFERENCES instructors
+    (id)
 );
 
 INSERT INTO cohorts
@@ -126,46 +130,46 @@ VALUES
 
 INSERT INTO students_exercises
 VALUES
-    (null, 1, 5);
+    (null, 1, 5, 1);
 INSERT INTO students_exercises
 VALUES
-    (null, 1, 3);
+    (null, 1, 3, 2);
 INSERT INTO students_exercises
 VALUES
-    (null, 2, 1);
+    (null, 2, 1, 3);
 INSERT INTO students_exercises
 VALUES
-    (null, 2, 2);
+    (null, 2, 2, 3);
 INSERT INTO students_exercises
 VALUES
-    (null, 3, 4);
+    (null, 3, 4, 2);
 INSERT INTO students_exercises
 VALUES
-    (null, 3, 5);
+    (null, 3, 5, 1);
 INSERT INTO students_exercises
 VALUES
-    (null, 4, 1);
+    (null, 4, 1, 2);
 INSERT INTO students_exercises
 VALUES
-    (null, 4, 4);
+    (null, 4, 4, 3);
 INSERT INTO students_exercises
 VALUES
-    (null, 5, 2);
+    (null, 5, 2, 1);
 INSERT INTO students_exercises
 VALUES
-    (null, 5, 3);
+    (null, 5, 3, 2);
 INSERT INTO students_exercises
 VALUES
-    (null, 6, 5);
+    (null, 6, 5, 1);
 INSERT INTO students_exercises
 VALUES
-    (null, 6, 4);
+    (null, 6, 4, 2);
 INSERT INTO students_exercises
 VALUES
-    (null, 7, 3);
+    (null, 7, 3, 1);
 INSERT INTO students_exercises
 VALUES
-    (null, 7, 1);
+    (null, 7, 1, 3);
 
 SELECT e.id ExerciseId,
     e.name,
@@ -187,7 +191,16 @@ from students s
     join students_exercises se on se.student_id = s.id
     join exercises e on e.id = se.exercise_id
 order by s.id;
-            
 
+select
+    i.id Instructor_ID,
+    i.first_name,
+    i.last_name,
+    e.id,
+    e.name
+from instructors i
+    join students_exercises se on se.assigner_id = i.id
+    join exercises e on e.id = se.exercise_id
+order by i.id
 
 
