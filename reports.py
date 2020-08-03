@@ -6,14 +6,14 @@ from cohort import Cohort
 
 
 class StudentExerciseReports():
-    """Methods for reports on the 
+    """Methods for reports on the
     Student Exercises database """
 
     def __init__(self):
         self.db_path = "/Users/kirk/workspace/python/student_exercises/student_exercises.db"
 
     def all_students(self):
-        """Retrieve all students with 
+        """Retrieve all students with
         the cohort name"""
 
         with sqlite3.connect(self.db_path) as conn:
@@ -77,11 +77,11 @@ class StudentExerciseReports():
             conn.row_factory = lambda cursor, row: Exercise(row[1], row[2])
             db_cursor = conn.cursor()
 
-            db_cursor.execute(""" 
+            db_cursor.execute("""
             select ex.id,
                 ex.name,
                 ex.language
-            from exercises ex 
+            from exercises ex
             where ex.language like "%javas%"
             """)
         all_javascript_ex = db_cursor.fetchall()
@@ -138,6 +138,41 @@ class StudentExerciseReports():
                 for student in students:
                     print(f'\t* {student}')
 
+    def student_workload(self):
+        """Retrieve students with all exercises they are working on, listed"""
+        with sqlite3.connect(self.db_path) as conn:
+            students = dict()
+            db_cursor = conn.cursor()
+
+            db_cursor.execute("""
+            select
+                s.id as Student_ID,
+                s.first_name,
+                s.last_name,
+                e.id,
+                e.name
+            from students s
+            join students_exercises se on se.student_id = s.id
+            join exercises e on e.id = se.exercise_id
+            order by s.id
+            """)
+            dataset = db_cursor.fetchall()
+            for row in dataset:
+                student_id = row[0]
+                student_name = f'{row[1]} {row[2]}'
+                exercise_name = row[4]
+
+                if student_name not in students:
+                    students[student_name] = [exercise_name]
+
+                else:
+                    students[student_name].append(exercise_name)
+
+            for student_name, exercises in students.items():
+                print(student_name)
+                for exercise in exercises:
+                    print(f'\t* {exercise}')
+
     def all_instructors(self):
         """Retrieve all instructors with
         the cohort name"""
@@ -154,7 +189,7 @@ class StudentExerciseReports():
                 i.cohort_id,
                 c.name
             from instructors i
-            join cohorts c on i.cohort_id = c.id
+            join cohorts c on i.cohort_id=c.id
             order by i.cohort_id
             """)
 
@@ -170,4 +205,5 @@ reports = StudentExerciseReports()
 # reports.all_exercises()
 # reports.all_javascript_ex()
 # reports.all_python_ex()
-reports.exercises_with_students()
+# reports.exercises_with_students()
+reports.student_workload()
